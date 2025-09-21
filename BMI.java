@@ -120,7 +120,7 @@ public class BMI {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 try (Connection conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3307/project","root","@12042004");
+                        "jdbc:mysql://localhost:3306/project","root","000000000");
                      PreparedStatement ps = conn.prepareStatement(
                              "INSERT INTO health_info(user_id, height, age, gender, activity_level, weight, bmi, tdee, health_status) VALUES (?,?,?,?,?,?,?,?,?)")) {
                     ps.setInt(1, Session.currentUserId);
@@ -171,7 +171,7 @@ public class BMI {
                 }
             }
             try (Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3307/project","root","@12042004");
+                    "jdbc:mysql://localhost:3306/project","root","000000000");
                  PreparedStatement psG = conn.prepareStatement(
                          "SELECT gender FROM health_info WHERE user_id = ? ORDER BY id DESC LIMIT 1")) {
                 psG.setInt(1, Session.currentUserId);
@@ -798,3 +798,4 @@ public class BMI {
 //        resultFrame.setVisible(true);
 //    }
 //}
+
