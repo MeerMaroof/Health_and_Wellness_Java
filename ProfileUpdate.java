@@ -106,7 +106,7 @@ public class ProfileUpdate {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3307/project", "root", "@12042004"
+                    "jdbc:mysql://localhost:3306/project", "rt", "000000000"
             );
             String sql = "SELECT * FROM users WHERE id = ?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -138,7 +138,7 @@ public class ProfileUpdate {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3307/project", "root", "@12042004"
+                        "jdbc:mysql://localhost:3306/project", "oo", "000000000"
                 );
                 String update = "UPDATE users SET age = ?, height_ft = ?, weight_kg = ?, diet_pref = ?, goal = ? WHERE id = ?";
                 PreparedStatement ps = con.prepareStatement(update);
@@ -168,4 +168,5 @@ public class ProfileUpdate {
         f.setLocationRelativeTo(null);
         f.setVisible(true);
     }
+
 }
