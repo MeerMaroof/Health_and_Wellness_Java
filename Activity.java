@@ -137,8 +137,8 @@ public class Activity {
 
             try {
                 Connection con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3307/project",
-                        "root", "@12042004"
+                        "jdbc:mysql://localhost:3306/project",
+                        "xyz", "000000000"
                 );
 
                 String sql = """
@@ -188,5 +188,6 @@ public class Activity {
         ff.setVisible(true);
     }
 }
+
 
 
