@@ -89,9 +89,9 @@ public class Login {
                 return;
             }
 
-            String dbUrl      = "jdbc:mysql://localhost:3307/project";
-            String dbUser     = "root";
-            String dbPassword = "@12042004";
+            String dbUrl      = "jdbc:mysql://localhost:3306/project";
+            String dbUser     = "roooot";
+            String dbPassword = "000000000";
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -147,3 +147,4 @@ public class Login {
         frame.setVisible(true);
     }
 }
+
