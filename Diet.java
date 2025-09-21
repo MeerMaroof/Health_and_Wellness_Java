@@ -28,7 +28,7 @@ public class Diet {
                 // Fetch latest tdee and healthStatus for current user
                 String urlDb = "jdbc:mysql://localhost:3307/project";
                 String uname = "root";
-                String pa = "@12042004";
+                String pa = "00000000";
                 String sql = "SELECT tdee, health_status FROM health_info WHERE user_id = ? ORDER BY id DESC LIMIT 1";
                 String tdee = "", healthStatus = "";
                 try (Connection con = DriverManager.getConnection(urlDb, uname, pa);
@@ -51,7 +51,7 @@ public class Diet {
                         + ". Don't include any introduction or other useless things, just the concise diet plan.";
 
                 // Call generative API
-                URL url = new URL("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDB3h0Tf3DGO_o5CU-omlMueI1c34J1z64");
+                URL url = new URL("YOUR_URL_HERE");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
@@ -129,3 +129,4 @@ public class Diet {
         frame.setVisible(true);
     }
 }
+
