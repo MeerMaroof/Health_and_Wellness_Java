@@ -52,8 +52,8 @@ public class Graph {
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3307/project",
-                        "root", "@12042004"
+                        "jdbc:mysql://localhost:3306/project",
+                        "abc", "000000000"
                 );
 
                 // fetch last 7 days activity for current user
@@ -180,3 +180,4 @@ public class Graph {
         frr.setVisible(true);
     }
 }
+
