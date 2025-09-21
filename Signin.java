@@ -145,9 +145,9 @@ public class Signin {
                 return;
             }
 
-            String url    = "jdbc:mysql://localhost:3307/project";
-            String dbUser = "root";
-            String dbPass = "@12042004";
+            String url    = "jdbc:mysql://localhost:3306/project";
+            String dbUser = "oo";
+            String dbPass = "000000000";
 
             try {
                 Class.forName("com.mysql.cj.jdbc.Driver");
@@ -206,3 +206,4 @@ public class Signin {
         f.setVisible(true);
     }
 }
+
