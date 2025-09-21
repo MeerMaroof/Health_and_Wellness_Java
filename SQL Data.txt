@@ -1,0 +1,154 @@
+change port / password / username according to your database.
+
+database name: project
+tables: users , activity , health_info , health_data.
+
+
+ users;
++------------+--------------------------------+------+-----+-------------------+-------------------+
+| Field      | Type                           | Null | Key | Default           | Extra             |
++------------+--------------------------------+------+-----+-------------------+-------------------+
+| id         | int                            | NO   | PRI | NULL              | auto_increment    |
+| name       | varchar(100)                   | YES  |     |                   |                   |
+| age        | int                            | YES  |     | 0                 |                   |
+| height_ft  | decimal(4,2)                   | YES  |     | 0.00              |                   |
+| weight_kg  | decimal(5,2)                   | YES  |     | 0.00              |                   |
+| diet_pref  | enum('Veg','Non-Veg','Both')   | YES  |     | Both              |                   |
+| goal       | enum('Lose','Gain','Maintain') | YES  |     | Maintain          |                   |
+| username   | varchar(50)                    | NO   | UNI | NULL              |                   |
+| password   | varchar(255)                   | NO   |     | NULL              |                   |
+| created_at | timestamp                      | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+| sec_answer | varchar(255)                   | NO   |     | NULL              |                   |
+| email      | varchar(255)                   | YES  |     | NULL              |                   |
++------------+--------------------------------+------+-----+-------------------+-------------------+
+
+
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    age INT DEFAULT 0,
+    height_ft DECIMAL(4,2) DEFAULT 0.00,
+    weight_kg DECIMAL(5,2) DEFAULT 0.00,
+    diet_pref ENUM('Veg', 'Non-Veg', 'Both') DEFAULT 'Both',
+    goal ENUM('Lose', 'Gain', 'Maintain') DEFAULT 'Maintain',
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    sec_answer VARCHAR(255) NOT NULL,
+    email VARCHAR(255)
+);
+
+
+
+
+
+
+
+
+ activity;
++--------------------+-------------+------+-----+-------------------+-------------------+
+| Field              | Type        | Null | Key | Default           | Extra             |
++--------------------+-------------+------+-----+-------------------+-------------------+
+| id                 | int         | NO   | PRI | NULL              | auto_increment    |
+| user_id            | int         | NO   | MUL | NULL              |                   |
+| day                | varchar(20) | YES  |     | NULL              |                   |
+| water_intake       | varchar(50) | YES  |     | NULL              |                   |
+| calories_burn      | varchar(50) | YES  |     | NULL              |                   |
+| weight             | varchar(50) | YES  |     | NULL              |                   |
+| sleep_hours        | varchar(50) | YES  |     | NULL              |                   |
+| diet_completed     | varchar(10) | YES  |     | NULL              |                   |
+| exercise_completed | varchar(10) | YES  |     | NULL              |                   |
+| created_at         | timestamp   | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++--------------------+-------------+------+-----+-------------------+-------------------+
+
+CREATE TABLE activity (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    day VARCHAR(20),
+    water_intake VARCHAR(50),
+    calories_burn VARCHAR(50),
+    weight VARCHAR(50),
+    sleep_hours VARCHAR(50),
+    diet_completed VARCHAR(10),
+    exercise_completed VARCHAR(10),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+
+
+
+
+
+
+
+ health_info;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int          | NO   | PRI | NULL    | auto_increment |
+| user_id        | int          | NO   | MUL | NULL    |                |
+| height         | double       | YES  |     | NULL    |                |
+| age            | int          | YES  |     | NULL    |                |
+| gender         | varchar(10)  | YES  |     | NULL    |                |
+| activity_level | varchar(100) | YES  |     | NULL    |                |
+| weight         | double       | YES  |     | NULL    |                |
+| bmi            | double       | YES  |     | NULL    |                |
+| tdee           | double       | YES  |     | NULL    |                |
+| health_status  | varchar(100) | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+
+CREATE TABLE health_info (
+  id              INT AUTO_INCREMENT PRIMARY KEY,
+  user_id         INT         NOT NULL,          -- foreign key to users.id
+  height          DOUBLE      NULL,
+  age             INT         NULL,
+  gender          VARCHAR(10) NULL,
+  activity_level  VARCHAR(100)NULL,
+  weight          DOUBLE      NULL,
+  bmi             DOUBLE      NULL,
+  tdee            DOUBLE      NULL,
+  health_status   VARCHAR(100)NULL,
+
+  -- ensure health_info.user_id references the signed-up user
+  CONSTRAINT fk_health_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+);
+
+
+
+
+
+
+
+ health_data;
++--------------+-------------+------+-----+-------------------+-------------------+
+| Field        | Type        | Null | Key | Default           | Extra             |
++--------------+-------------+------+-----+-------------------+-------------------+
+| id           | int         | NO   | PRI | NULL              | auto_increment    |
+| user_id      | int         | NO   | MUL | NULL              |                   |
+| entry_date   | date        | NO   |     | NULL              |                   |
+| meal_type    | varchar(50) | NO   |     | NULL              |                   |
+| description  | text        | NO   |     | NULL              |                   |
+| calories_est | double      | YES  |     | NULL              |                   |
+| created_at   | timestamp   | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++--------------+-------------+------+-----+-------------------+-------------------+
+
+CREATE TABLE IF NOT EXISTS health_data (
+  id               INT AUTO_INCREMENT PRIMARY KEY,
+  user_id          INT         NOT NULL,
+  entry_date       DATE        NOT NULL,
+  meal_type        VARCHAR(50) NOT NULL,  -- e.g. 'Breakfast', 'Lunch', ...
+  description      TEXT        NOT NULL,  -- the diet plan instructions
+  calories_est     DOUBLE      DEFAULT NULL,
+  created_at       TIMESTAMP   DEFAULT CURRENT_TIMESTAMP,
+
+  CONSTRAINT fk_data_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+);
+
+
